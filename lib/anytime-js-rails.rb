@@ -1,4 +1,2 @@
 require "anytime-js-rails/engine"
-
-module AnytimeJsRails
-end
+require "anytime-js-rails/version"
