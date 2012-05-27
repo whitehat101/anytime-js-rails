@@ -7,16 +7,19 @@ require "anytime-js-rails/version"
 Gem::Specification.new do |s|
   s.name        = "anytime-js-rails"
   s.version     = AnytimeJsRails::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of AnytimeJsRails."
-  s.description = "TODO: Description of AnytimeJsRails."
+  s.authors     = ["Jeremy Ebler","Andrew M Andrews III"]
+  s.email       = ["jebler@gmail.com"]
+  s.homepage    = "http://www.ama3.com/anytime/"
+  s.summary     = "Any+Time™"
+  s.description = "Any+Time™ DatePicker/TimePicker AJAX Calendar Widget"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.1.4"
+  s.add_dependency "rails", "~> 3.1.0"
+  s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "minitest"
+  s.add_development_dependency "capybara"
 end
