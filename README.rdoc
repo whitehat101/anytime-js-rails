@@ -1,3 +1,24 @@
-= AnytimeJsRails
+= anytime-js-rails - Rails 3.1+ Asset Gem
+=== Any+Time™ DatePicker/TimePicker AJAX Calendar Widget
 
-This project rocks and uses MIT-LICENSE.
+js/css by Andrew M Andrews III
+
+See http://www.ama3.com/anytime/ more documentation.
+
+
+== Include it in your manifests
+
+Javascript
+  # javascripts/application.js
+  //= require anytime
+
+CSS
+  # stylesheets/application.css
+  /*
+   *= require anytime
+   */
+
+Or with SCSS
+  # stylesheets/application.css.scss
+  @import "anytime";
+
