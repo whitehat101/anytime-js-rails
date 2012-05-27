@@ -3,7 +3,7 @@
  *
  *  VERSION: 4.1112L
  *
- *  Copyright 2008-2012 Andrew M. Andrews III (www.AMA3.com). Some Rights 
+ *  Copyright 2008-2012 Andrew M. Andrews III (www.AMA3.com). Some Rights
  *  Reserved. This work licensed under the Creative Commons Attribution-
  *  Noncommercial-Share Alike 3.0 Unported License except in jurisdicitons
  *  for which the license has been ported by Creative Commons International,
@@ -27,7 +27,7 @@
  *
  *    AnyTime.pad()
  *      Pads a value with a specific number of leading zeroes.
- *      
+ *
  *    AnyTime.noPicker()
  *      Destroys a calendar widget previously added by AnyTime.picker().
  *      Can also be invoked via jQuery using $(selector).AnyTime_noPicker()
@@ -79,18 +79,18 @@ var AnyTime =
 	var __daysIn = [ 31,28,31,30,31,30,31,31,30,31,30,31 ];
 	var __iframe = null;
 	var __initialized = false;
-	var __msie6 = ( navigator.userAgent.indexOf('MSIE 6') > 0 ); 
-	var __msie7 = ( navigator.userAgent.indexOf('MSIE 7') > 0 ); 
+	var __msie6 = ( navigator.userAgent.indexOf('MSIE 6') > 0 );
+	var __msie7 = ( navigator.userAgent.indexOf('MSIE 7') > 0 );
   	var __pickers = [];
 
   	//  Add methods to jQuery to create and destroy pickers using
   	//  the typical jQuery approach.
-  	
+
   	jQuery.prototype.AnyTime_picker = function( options )
   	{
   		return this.each( function(i) { AnyTime.picker( this.id, options ); } );
   	}
-  	
+
   	jQuery.prototype.AnyTime_noPicker = function()
   	{
   		return this.each( function(i) { AnyTime.noPicker( this.id ); } );
@@ -98,21 +98,21 @@ var AnyTime =
 
   	//  Add methods to jQuery to change the earliest and latest times using
   	//  the typical jQuery approach.
-  	
+
   	jQuery.prototype.AnyTime_setEarliest = function( options )
     {
   		return this.each( function(i) { AnyTime.setEarliest( this.id, options ); } );
     }
-  	
+
   	jQuery.prototype.AnyTime_setLatest = function( options )
     {
   		return this.each( function(i) { AnyTime.setLatest( this.id, options ); } );
     }
-  	
+
   	//	Add special methods to jQuery to compute the height and width
 	//	of picker components differently for Internet Explorer 6.x
 	//  This prevents the pickers from being too tall and wide.
-  	
+
   	jQuery.prototype.AnyTime_height = function(inclusive)
   	{
   		return ( __msie6 ?
@@ -127,7 +127,7 @@ var AnyTime =
   					this.outerWidth(inclusive) );
   	};
 
-  	
+
   	// 	Add a method to jQuery to change the classes of an element to
   	//  indicate whether it's value is current (used by AnyTime.picker),
   	//  and another to trigger the click handler for the currently-
@@ -149,20 +149,20 @@ var AnyTime =
 	    	  this.removeClass('AnyTime-out-btn ui-state-disabled');
 	    }
 	};
-	
+
 	jQuery.prototype.AnyTime_clickCurrent = function()
 	{
 		this.find('.AnyTime-cur-btn').triggerHandler('click');
 	}
-  	
-  	$(document).ready( 
+
+  	$(document).ready(
   		function()
 		{
 			//  IE6 doesn't float popups over <select> elements unless an
 			//	<iframe> is inserted between them!  The <iframe> is added to
 			//	the page *before* the popups are moved, so they will appear
 			//  after the <iframe>.
-			
+
 			if ( __msie6 )
 			{
 				__iframe = $('<iframe frameborder="0" scrolling="no"></iframe>');
@@ -177,18 +177,18 @@ var AnyTime =
 					} );
 				$(document.body).append(__iframe);
 			}
-			
+
 			//  Move popup windows to the end of the page.  This allows them to
 			//  overcome XHTML restrictions on <table> placement enforced by MSIE.
-			
+
 			for ( var id in __pickers )
         if ( ! Array.prototype[id] ) // prototype.js compatibility issue
 			    __pickers[id].onReady();
-			
+
 			__initialized = true;
-		
+
 		} ); // document.ready
-  	
+
 //=============================================================================
 //  AnyTime.Converter
 //
@@ -217,7 +217,7 @@ var AnyTime =
 //      as ABBREVIATED day names.  If not specified, the following are used:
 //      ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
 //      Note that if the firstDOW option is passed to AnyTime.picker() (see
-//      AnyTime.picker()), this array should nonetheless begin with the 
+//      AnyTime.picker()), this array should nonetheless begin with the
 //      desired abbreviation for Sunday.
 //
 //    dayNames - an array of seven strings, indexed 0-6, to be used as
@@ -283,14 +283,14 @@ var AnyTime =
 //
 //        %: - the timezone offset, with a sign, in hours and minutes, in
 //          four-digit, 24-hour format with a colon delimiter (for example,
-//          +05:30).  This is similar to the %z format used by Java.  
+//          +05:30).  This is similar to the %z format used by Java.
 //          To remember the difference between %: and %;, it might be helpful
 //          to remember that a colon (:) has a period (.) on the bottom and
 //          a semicolon (;) has a comma (,), and in English sentence structure,
 //          a period represents a more significant stop than a comma, and
 //          %: might be a longer string than %; (I know it's a stretch, but
 //          it's easier than looking it up every time)!
-//  	
+//
 //        %- - the timezone offset, with a sign, in hours and minutes, in
 //          three-or-four-digit, 24-hour format with no delimiter (for
 //          example, +530).
@@ -300,7 +300,7 @@ var AnyTime =
 //          (for example, +5:30).
 //
 //        %@ - the timezone offset label.  By default, this will be the
-//          string "UTC" followed by the offset, with a sign, in hours and  
+//          string "UTC" followed by the offset, with a sign, in hours and
 //          minutes, in four-digit, 24-hour format with a colon delimiter
 //          (for example, UTC+05:30).  However, if Any+Time(TM) has been
 //          extended with a member named utcLabel (for example, by the
@@ -359,13 +359,13 @@ var AnyTime =
 //
 //    utcParseOffsetCapture - if true, any parsed string is always treated as
 //      though it represents local time, and any offset specified by the string
-//      (or utcParseOffsetAssume) is captured for return by the 
+//      (or utcParseOffsetAssume) is captured for return by the
 //      getUtcParseOffsetCaptured() method.  If the %@ format specifier is
 //      used, the sub-index of any matched label is also captured for return
 //      by the getUtcParseOffsetSubIndex() method.  This primarily exists so
 //      AnyTime.picker can edit the time as specified (without conversion to
 //      local time) and then convert the edited time to a different time zone
-//      (as selected using the picker). 
+//      (as selected using the picker).
 //=============================================================================
 
 AnyTime.Converter = function(options)
@@ -386,7 +386,7 @@ AnyTime.Converter = function(options)
 	var _captureOffset = false;
 
 	// public members
-  
+
 	this.fmt = '%Y-%m-%d %T';
 	this.dAbbr = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 	this.dNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -394,18 +394,18 @@ AnyTime.Converter = function(options)
 	this.mAbbr = [ 'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec' ];
 	this.mNames = [ 'January','February','March','April','May','June','July','August','September','October','November','December' ];
 	this.baseYear = null;
-	
+
 	//-------------------------------------------------------------------------
 	//  AnyTime.Converter.dAt() returns true if the character in str at pos
 	//  is a digit.
 	//-------------------------------------------------------------------------
-	
+
 	this.dAt = function( str, pos )
 	{
 	    return ( (str.charCodeAt(pos)>='0'.charCodeAt(0)) &&
 	            (str.charCodeAt(pos)<='9'.charCodeAt(0)) );
 	};
-	
+
 	//-------------------------------------------------------------------------
 	//  AnyTime.Converter.format() returns a String containing the value
 	//  of a specified Date object, using the format string passed to
@@ -415,13 +415,13 @@ AnyTime.Converter = function(options)
 	//
 	//    date - the Date object to be converted
 	//-------------------------------------------------------------------------
-	
+
 	this.format = function( date )
 	{
 		var d = new Date(date.getTime());
 		if ( ( _offAl == Number.MIN_VALUE ) && ( _offF != Number.MIN_VALUE ) )
 		  d.setTime( ( d.getTime() + (d.getTimezoneOffset()*60000) ) + (_offF*60000) );
-			
+
 	    var t;
 	    var str = '';
 	    for ( var f = 0 ; f < _flen ; f++ )
@@ -627,9 +627,9 @@ AnyTime.Converter = function(options)
 	      } // else
 	    } // for ( var f = 0 ; f < _flen ; f++ )
 	    return str;
-	    
+
 	}; // AnyTime.Converter.format()
-		  
+
 	//-------------------------------------------------------------------------
 	//  AnyTime.Converter.getUtcParseOffsetCaptured() returns the UTC offset
 	//  last captured by a parsed string (or assumed by utcParseOffsetAssumed).
@@ -637,12 +637,12 @@ AnyTime.Converter = function(options)
 	//  the utcParseOffsetCapture option set to true, or if an offset was not
 	//  specified by the last parsed string or utcParseOffsetAssumed.
 	//-------------------------------------------------------------------------
-	
+
 	this.getUtcParseOffsetCaptured = function()
 	{
 	    return _offCap;
 	};
-	
+
 	//-------------------------------------------------------------------------
 	//  AnyTime.Converter.getUtcParseOffsetCaptured() returns the UTC offset
 	//  last captured by a parsed string (or assumed by utcParseOffsetAssumed).
@@ -650,12 +650,12 @@ AnyTime.Converter = function(options)
 	//  the utcParseOffsetCapture option set to true, or if an offset was not
 	//  specified by the last parsed string or utcParseOffsetAssumed.
 	//-------------------------------------------------------------------------
-	
+
 	this.getUtcParseOffsetSubIndex = function()
 	{
 	    return _offPSI;
 	};
-	
+
 	//-------------------------------------------------------------------------
 	//  AnyTime.Converter.parse() returns a Date initialized from a specified
 	//  string, using the format passed to AnyTime.Converter().
@@ -664,7 +664,7 @@ AnyTime.Converter = function(options)
 	//
 	//    str - the String object to be converted
 	//-------------------------------------------------------------------------
-	
+
 	this.parse = function( str )
 	{
 		_offCap = _offP;
@@ -1021,13 +1021,13 @@ AnyTime.Converter = function(options)
 	       else
 	    	 time.setTime( ( time.getTime() - (tzOff*60000) ) - (time.getTimezoneOffset()*60000) );
 		}
-		
+
 	    return time;
-	    
+
 	}; // AnyTime.Converter.parse()
-	
+
 	//-------------------------------------------------------------------------
-	//  AnyTime.Converter.setUtcFormatOffsetAlleged()  sets the offset from 
+	//  AnyTime.Converter.setUtcFormatOffsetAlleged()  sets the offset from
     //  UTC, in minutes, to claim that a Date object represents during
 	//  formatting, even though it is formatted using local time.  This merely
 	//  reports the alleged offset when a timezone specifier (%#, %+, %-, %:,
@@ -1042,14 +1042,14 @@ AnyTime.Converter = function(options)
 	//  any prior value.  Note that if a format offset is alleged, any offset
 	//  specified by option utcFormatOffsetImposed is ignored.
 	//-------------------------------------------------------------------------
-	
+
 	this.setUtcFormatOffsetAlleged = function( offset )
 	{
 		var prev = _offAl;
 	    _offAl = offset;
 	    return prev;
 	};
-	
+
 	//-------------------------------------------------------------------------
 	//  AnyTime.Converter.setUtcFormatOffsetSubIndex() sets the sub-index
 	//  to choose from the AnyTime.utcLabel array of arrays when formatting
@@ -1061,35 +1061,35 @@ AnyTime.Converter = function(options)
 	//  setUtcFormatOffsetAlleged(), or (-1) if no sub-index was previously-
 	//  chosen.  Call this method with (-1) to cancel any prior value.
 	//-------------------------------------------------------------------------
-	
+
 	this.setUtcFormatOffsetSubIndex = function( subIndex )
 	{
 		var prev = _offFSI;
 	    _offFSI = subIndex;
 	    return prev;
 	};
-	
+
 	//-------------------------------------------------------------------------
 	//	AnyTime.Converter construction code:
 	//-------------------------------------------------------------------------
-	  
+
 	(function(_this)
 	{
       var i, len;
-		
+
 		options = jQuery.extend(true,{},options||{});
-		
+
 	  	if ( options.baseYear )
 			_this.baseYear = Number(options.baseYear);
-		
+
 	  	if ( options.format )
 			_this.fmt = options.format;
-		
+
 	  	_flen = _this.fmt.length;
-		
+
 	  	if ( options.dayAbbreviations )
 	  		_this.dAbbr = $.makeArray( options.dayAbbreviations );
-		
+
 	  	if ( options.dayNames )
 	  	{
 	  		_this.dNames = $.makeArray( options.dayNames );
@@ -1104,13 +1104,13 @@ AnyTime.Converter = function(options)
 					_shortDay = len;
 	  		}
 	  	}
-		
+
 	  	if ( options.eraAbbreviations )
 	  		_this.eAbbr = $.makeArray(options.eraAbbreviations);
-		
+
 	  	if ( options.monthAbbreviations )
 	  		_this.mAbbr = $.makeArray(options.monthAbbreviations);
-		
+
 	  	if ( options.monthNames )
 	  	{
 	  		_this.mNames = $.makeArray( options.monthNames );
@@ -1125,19 +1125,19 @@ AnyTime.Converter = function(options)
 	  				_shortMon = len;
 	  		}
 	  	}
-		
+
 	  	if ( typeof options.utcFormatOffsetImposed != "undefined" )
 	  		_offF = options.utcFormatOffsetImposed;
 
 	  	if ( typeof options.utcParseOffsetAssumed != "undefined" )
 	  		_offP = options.utcParseOffsetAssumed;
-		
+
 	  	if ( options.utcParseOffsetCapture )
 	  		_captureOffset = true;
-		
+
 	})(this); // AnyTime.Converter construction
 
-}; // AnyTime.Converter = 
+}; // AnyTime.Converter =
 
 //=============================================================================
 //  AnyTime.noPicker()
@@ -1233,7 +1233,7 @@ AnyTime.noPicker = function( id )
 //      and/or dayNames options, they should nonetheless begin with the
 //      value for Sunday.
 //
-//    hideInput - if true, the <input> is "hidden" (the picker appears in 
+//    hideInput - if true, the <input> is "hidden" (the picker appears in
 //      its place). This actually sets the border, height, margin, padding
 //      and width of the field as small as possivle, so it can still get focus.
 //      If you try to hide the field using traditional techniques (such as
@@ -1314,7 +1314,7 @@ AnyTime.picker = function( id, options )
 {
 	//  Create a new private object instance to manage the picker,
 	//  if one does not already exist.
-	
+
     if ( __pickers[id] )
     	throw 'Cannot create another AnyTime.picker for "'+id+'"';
 
@@ -1323,7 +1323,7 @@ AnyTime.picker = function( id, options )
 	__pickers[id] =
 	{
 		//  private members
-		
+
 		twelveHr: false,
 		ajaxOpts: null,		// options for AJAX requests
 		denyTab: true,      // set to true to stop Opera from tabbing away
@@ -1420,7 +1420,7 @@ AnyTime.picker = function( id, options )
 		        if ( ! this.ajaxOpts.success )
 		        	this.ajaxOpts.success = function(data,status) { _this.inp.val(data); };
 		  	}
-		    
+
 		  	if ( options.earliest )
 		  	{
 		  		if ( typeof options.earliest.getTime == 'function' )
@@ -1432,7 +1432,7 @@ AnyTime.picker = function( id, options )
 		  	if ( options.firstDOW )
 		  	{
 		  		if ( ( options.firstDOW < 0 ) || ( options.firstDOW > 6 ) )
-		  			throw new Exception('illegal firstDOW: ' + options.firstDOW); 
+		  			throw new Exception('illegal firstDOW: ' + options.firstDOW);
 		  		this.fDOW = options.firstDOW;
 		  	}
 
@@ -1474,7 +1474,7 @@ AnyTime.picker = function( id, options )
 		  	var askTime = askHour || askMinute || askSec || askOff;
 
 		  	if ( askOff )
-			  	this.oConv = new AnyTime.Converter( { format: options.formatUtcOffset || 
+			  	this.oConv = new AnyTime.Converter( { format: options.formatUtcOffset ||
 			  		format.match(/\S*%[-+:;<>#@]\S*/g).join(' ') } );
 
 		  	//  Create the picker HTML and add it to the page.
@@ -1486,7 +1486,7 @@ AnyTime.picker = function( id, options )
 		    this.inp.after(this.div);
 		  	this.wMinW = this.div.outerWidth(!$.browser.safari);
 		  	this.wMinH = this.div.AnyTime_height(true);
-		  	this.hTitle = $( '<h5 class="AnyTime-hdr ui-widget-header ui-corner-top"/>' ); 
+		  	this.hTitle = $( '<h5 class="AnyTime-hdr ui-widget-header ui-corner-top"/>' );
 		  	this.div.append( this.hTitle );
 		  	this.dB = $( '<div class="AnyTime-body" style="width:0;height:0"/>' );
 		  	this.div.append( this.dB );
@@ -1495,7 +1495,7 @@ AnyTime.picker = function( id, options )
 
 		  	if ( options.hideInput )
 		        this.inp.css({border:0,height:'1px',margin:0,padding:0,width:'1px'});
-		  	
+
 		  	//  Add dismiss box to title (if popup)
 
 		  	t = null;
@@ -1533,7 +1533,7 @@ AnyTime.picker = function( id, options )
 
 		          this.yNext = this.btn(this.dY,'3',this.newYear,['yr-next'],'+1 '+this.lY);
 		          this.yAhead = this.btn(this.dY,'&gt;',this.newYear,['yrs-ahead'],'+ '+this.lY);
-		          
+
 		          shownFields++;
 
 		      } // if ( askYear )
@@ -1547,7 +1547,7 @@ AnyTime.picker = function( id, options )
 		    	  this.dD.append(this.dMo);
 		    	  for ( i = 0 ; i < 12 ; i++ )
 		    	  {
-		    		  var mBtn = this.btn( this.dMo, this.conv.mAbbr[i], 
+		    		  var mBtn = this.btn( this.dMo, this.conv.mAbbr[i],
 			    			function( event )
 			    			{
 			    				var elem = $(event.target);
@@ -1662,7 +1662,7 @@ AnyTime.picker = function( id, options )
 		        }
 
 				shownFields++;
-				
+
 		      } // if ( askHour )
 
 		      if ( askMinute )
@@ -1676,7 +1676,7 @@ AnyTime.picker = function( id, options )
 		        this.dM.append(tensDiv);
 
 		        for ( i = 0 ; i < 6 ; i++ )
-		          this.btn( tensDiv, i, 
+		          this.btn( tensDiv, i,
 		        		  function( event )
 		        		  {
 		        		      var elem = $(event.target);
@@ -1694,7 +1694,7 @@ AnyTime.picker = function( id, options )
             onesDiv = $('<ul class="AnyTime-mins-ones"/>');
 		        this.dM.append(onesDiv);
 		        for ( i = 0 ; i < 10 ; i++ )
-		          this.btn( onesDiv, i, 
+		          this.btn( onesDiv, i,
 		    		  function( event )
 		    		  {
 		    		      var elem = $(event.target);
@@ -1703,7 +1703,7 @@ AnyTime.picker = function( id, options )
 		    		      var t = new Date(this.time.getTime());
 		    		      t.setMinutes( (Math.floor(this.time.getMinutes()/10)*10)+Number(elem.text()) );
 		    		      this.set(t);
-		    		      this.upd(elem);  
+		    		      this.upd(elem);
 		    		  },
 		    		  ['min-one','min'+i], lab+' '+i );
 		        for ( ; i < 12 ; i++ )
@@ -1765,13 +1765,13 @@ AnyTime.picker = function( id, options )
 		    	this.dO = $('<div class="AnyTime-offs" />');
 		        this.dT.append(this.dO);
 			  	this.oMinW = this.dO.outerWidth(true);
-		        
+
 		    	this.oLab = $('<h6 class="AnyTime-lbl AnyTime-lbl-off">' + this.lO + '</h6>');
 		    	this.dO.append( this.oLab );
-		        
+
 		    	var offDiv = $('<ul class="AnyTime-off-list ui-helper-reset" />');
 		        this.dO.append(offDiv);
-		        
+
 		        this.oCur = this.btn(offDiv,'',this.newOffset,['off','off-cur'],lab);
 		        this.oCur.removeClass('ui-state-default');
 		        this.oCur.addClass('AnyTime-cur-btn ui-state-default ui-state-highlight');
@@ -1782,7 +1782,7 @@ AnyTime.picker = function( id, options )
 
 				shownFields++;
 		      }
-		      
+
 		    } // if ( askTime )
 
 		    //  Set the title.  If a title option has been specified, use it.
@@ -1821,7 +1821,7 @@ AnyTime.picker = function( id, options )
 		        __iframe.hide();
 		      this.div.css('position','absolute');
 		    }
-			
+
 		    //  Setup event listeners for the input and resize listeners for
 		    //  the picker.  Add the picker to the instances list (which is used
 		    //  to hide pickers if the user clicks off of them).
@@ -1831,13 +1831,13 @@ AnyTime.picker = function( id, options )
 		    	{
 		    		_this.inpBlur(e);
 		    	} );
-		    
+
 		    this.inp.click( this.hClick =
 		    	function(e)
 		    	{
 	    			_this.showPkr(e);
 		    	} );
-		    
+
 		    this.inp.focus( this.hFocus =
 		    	function(e)
 		    	{
@@ -1845,33 +1845,33 @@ AnyTime.picker = function( id, options )
 		    			_this.showPkr(e);
 		    		_this.lostFocus = false;
 		    	} );
-		    
+
 		    this.inp.keydown( this.hKeydown =
 		    	function(e)
 		    	{
 		    		_this.key(e);
 		    	} );
-		    
+
 		    this.inp.keypress( this.hKeypress =
 			    	function(e)
 			    	{
 			    		if ( $.browser.opera && _this.denyTab )
 			    			e.preventDefault();
 			    	} );
-			    
-		    this.div.click( 
+
+		    this.div.click(
 				function(e)
 				{
 					_this.lostFocus = false;
 					_this.inp.focus();
 				} );
-		    
-		    $(window).resize( 
+
+		    $(window).resize(
 		    	function(e)
 		    	{
 		    		_this.pos(e);
 		    	} );
-		    
+
 		    if ( __initialized )
 		    	this.onReady();
 
@@ -1907,7 +1907,7 @@ AnyTime.picker = function( id, options )
 		      }
 		    }
 		    return;
-		
+
 		}, // .ajax()
 
 		//---------------------------------------------------------------------
@@ -1920,10 +1920,10 @@ AnyTime.picker = function( id, options )
 		    if ( ! this.oDiv )
 		    {
 		      this.makeCloak();
-		
+
 		      this.oDiv = $('<div class="AnyTime-win AnyTime-off-selector ui-widget ui-widget-content ui-corner-all" style="position:absolute" />');
 		      this.div.append(this.oDiv);
-		
+
 		      // the order here (HDR,BODY,XDIV,TITLE) is important for width calcluation:
 		      var title = $('<h5 class="AnyTime-hdr AnyTime-hdr-off-selector ui-widget-header ui-corner-top" />');
 		      this.oDiv.append( title );
@@ -1932,7 +1932,7 @@ AnyTime.picker = function( id, options )
 		      var oBHS = this.oBody.AnyTime_height(true); // body spacing
 		      var oBWS = this.oBody.AnyTime_width(true);
 		      var oTWS = title.AnyTime_width(true);
-		      
+
 		      var xDiv = $('<div class="AnyTime-x-btn ui-state-default">'+this.lX+'</div>');
 		      title.append(xDiv);
 		      xDiv.click(function(e){_this.dismissODiv(e);});
@@ -1940,7 +1940,7 @@ AnyTime.picker = function( id, options )
 			  if ( __msie6 || __msie7 ) // IE bugs!
 				  title.width(String(this.lO.length*0.8)+"em");
 			  var oBW = title.AnyTime_width(true) - oBWS; // initial body width
-		      
+
 		      var cont = $('<ul class="AnyTime-off-off" />' );
 		      var last = null;
 		      this.oBody.append(cont);
@@ -1964,12 +1964,12 @@ AnyTime.picker = function( id, options )
 				        	  break; // for
 				        }
 			    	  }
-			          
+
 		      if ( last )
 		    	  last.addClass('AnyTime-off-off-last-btn');
-		      
+
 		      // compute optimal width
-		      
+
 		      this.oBody.find('.AnyTime-off-off-btn').width(btnW); // set uniform button width
 		      if ( last )
 		      {
@@ -1979,20 +1979,20 @@ AnyTime.picker = function( id, options )
 		      }
 		      this.oBody.width(oBW);
 		      oBW = this.oBody.AnyTime_width(true);
-		      this.oDiv.width( oBW );		      
+		      this.oDiv.width( oBW );
 		      if ( __msie6 || __msie7 ) // IE bugs!
 				  title.width( oBW - oTWS );
 
 		      // compute optimal height
-		      
+
 		      var oH = this.oDiv.AnyTime_height(true);
 		      var oHmax = this.div.height() * 0.75;
 		      if ( oH > oHmax )
 		      {
 		    	  oH = oHmax;
 		    	  this.oBody.height(oH-(title.AnyTime_height(true)+oBHS));
-			      this.oBody.width(this.oBody.width()+20); // add nominal px for scrollbar 
-			      this.oDiv.width(this.oDiv.width()+20); 
+			      this.oBody.width(this.oBody.width()+20); // add nominal px for scrollbar
+			      this.oDiv.width(this.oDiv.width()+20);
 			      if ( __msie6 || __msie7 ) // IE bugs!
 					  title.width( this.oBody.AnyTime_width(true) - oTWS );
 		      }
@@ -2012,7 +2012,7 @@ AnyTime.picker = function( id, options )
 		    if ( ! f.length )
 		    	f = this.oDiv.find('.AnyTime-off-off-btn:first');
 		    this.setFocus( f );
-		
+
 		}, // .askOffset()
 
 		//---------------------------------------------------------------------
@@ -2025,24 +2025,24 @@ AnyTime.picker = function( id, options )
 		    if ( ! this.yDiv )
 		    {
 		      this.makeCloak();
-		
+
 		      this.yDiv = $('<div class="AnyTime-win AnyTime-yr-selector ui-widget ui-widget-content ui-corner-all" style="position:absolute" />');
 		      this.div.append(this.yDiv);
-		
+
 		      var title = $('<h5 class="AnyTime-hdr AnyTime-hdr-yr-selector ui-widget-header ui-corner-top" />');
 		      this.yDiv.append( title );
-		
+
 		      var xDiv = $('<div class="AnyTime-x-btn ui-state-default">'+this.lX+'</div>');
 		      title.append(xDiv);
 		      xDiv.click(function(e){_this.dismissYDiv(e);});
-		
+
 		      title.append( this.lY );
-		
+
 		      var yBody = $('<div class="AnyTime-body AnyTime-body-yr-selector" />');
 		      var yW = yBody.AnyTime_width(true);
 		      var yH = 0;
 		      this.yDiv.append( yBody );
-		      
+
 		      cont = $('<ul class="AnyTime-yr-mil" />' );
 		      yBody.append(cont);
 		      this.y0XXX = this.btn( cont, 0, this.newYPos,['mil','mil0'],this.lY+' '+0+'000');
@@ -2051,7 +2051,7 @@ AnyTime.picker = function( id, options )
 		      yW += cont.AnyTime_width(true);
 		      if ( yH < cont.AnyTime_height(true) )
 		    	  yH = cont.AnyTime_height(true);
-		
+
 			  cont = $('<ul class="AnyTime-yr-cent" />' );
 		      yBody.append(cont);
 		      for ( i = 0 ; i < 10 ; i++ )
@@ -2067,7 +2067,7 @@ AnyTime.picker = function( id, options )
 		      yW += cont.AnyTime_width(true);
 		      if ( yH < cont.AnyTime_height(true) )
 		    	  yH = cont.AnyTime_height(true);
-		
+
 		      cont = $('<ul class="AnyTime-yr-yr" />');
 		      yBody.append(cont);
 		      for ( i = 0 ; i < 10 ; i++ )
@@ -2075,12 +2075,12 @@ AnyTime.picker = function( id, options )
 		      yW += cont.AnyTime_width(true);
 		      if ( yH < cont.AnyTime_height(true) )
 		    	  yH = cont.AnyTime_height(true);
-		
+
 		      if ( this.askEra )
 		      {
 		        cont = $('<ul class="AnyTime-yr-era" />' );
 		        yBody.append(cont);
-		
+
 		        this.btn( cont, this.conv.eAbbr[0],
 		        		function( event )
 		        		{
@@ -2092,7 +2092,7 @@ AnyTime.picker = function( id, options )
 							this.updYDiv($(event.target));
 		        		},
 		        		['era','bce'], this.conv.eAbbr[0] );
-		
+
 		        this.btn( cont, this.conv.eAbbr[1],
 		        		function( event )
 		        		{
@@ -2104,7 +2104,7 @@ AnyTime.picker = function( id, options )
 							this.updYDiv($(event.target));
 		        		},
 		        		['era','ce'], this.conv.eAbbr[1] );
-		        
+
 		        yW += cont.AnyTime_width(true);
 		        if ( yH < cont.AnyTime_height(true) )
 		        	yH = cont.AnyTime_height(true);
@@ -2127,7 +2127,7 @@ AnyTime.picker = function( id, options )
 		      this.yDiv.css('width',String(yW)+'px');
 			  if ( ! __msie7 ) // IE7 bug!
 				  this.yDiv.css('height',String(yH)+'px');
-		
+
 		    } // if ( ! this.yDiv )
 		    else
 		    {
@@ -2137,7 +2137,7 @@ AnyTime.picker = function( id, options )
 		    this.pos(event);
 		    this.updYDiv(null);
 		    this.setFocus( this.yDiv.find('.AnyTime-yr-btn.AnyTime-cur-btn:first') );
-		
+
 		}, // .askYear()
 
 		//---------------------------------------------------------------------
@@ -2145,9 +2145,9 @@ AnyTime.picker = function( id, options )
 		//  the popup.  A 1/3 second delay is necessary to restore focus if
 		//	the div is clicked (shorter delays don't always work!)  To prevent
 		//  problems cause by scrollbar focus (except in FF), focus is
-		//  force-restored if the offset div is visible. 
+		//  force-restored if the offset div is visible.
 		//---------------------------------------------------------------------
-  
+
 		inpBlur: function(event)
 		{
 			if ( this.oDiv && this.oDiv.is(":visible") )
@@ -2158,10 +2158,10 @@ AnyTime.picker = function( id, options )
 			this.lostFocus = true;
 		    setTimeout(
 		    	function()
-		    	{ 
+		    	{
 		    		if ( _this.lostFocus )
 		    		{
-		    			_this.div.find('.AnyTime-focus-btn').removeClass('AnyTime-focus-btn ui-state-focus'); 
+		    			_this.div.find('.AnyTime-focus-btn').removeClass('AnyTime-focus-btn ui-state-focus');
 		    			if ( _this.pop )
 		    				_this.dismiss(event);
 		    			else
@@ -2169,7 +2169,7 @@ AnyTime.picker = function( id, options )
 		    		}
 		    	}, 334 );
 		},
-		
+
 		//---------------------------------------------------------------------
 		//  .btn() is called by AnyTime.picker() to create a <div> element
 		//  containing an <a> element.  The elements are given appropriate
@@ -2180,10 +2180,10 @@ AnyTime.picker = function( id, options )
 		//	appended to the specified parent (jQuery), and the <div> jQuery
 		//	is returned.
 		//---------------------------------------------------------------------
-		
+
 		btn: function( parent, text, handler, classes, title )
 		{
-			var tagName = ( (parent[0].nodeName.toLowerCase()=='ul')?'li':'td'); 
+			var tagName = ( (parent[0].nodeName.toLowerCase()=='ul')?'li':'td');
 			var div$ = '<' + tagName +
 			  				' class="AnyTime-btn';
 			for ( var i = 0 ; i < classes.length ; i++ )
@@ -2191,7 +2191,7 @@ AnyTime.picker = function( id, options )
 			var div = $( div$ + ' ui-state-default">' + text + '</' + tagName + '>' );
 			parent.append(div);
 			div.AnyTime_title = title;
-			
+
 			div.click(
 			    function(e)
 			  	{
@@ -2201,24 +2201,24 @@ AnyTime.picker = function( id, options )
 			  	});
 			div.dblclick(
 				function(e)
-				{ 					
+				{
 					var elem = $(this);
 					if ( elem.is('.AnyTime-off-off-btn') )
 						_this.dismissODiv(e);
 					else if ( elem.is('.AnyTime-mil-btn') || elem.is('.AnyTime-cent-btn') || elem.is('.AnyTime-dec-btn') || elem.is('.AnyTime-yr-btn') || elem.is('.AnyTime-era-btn') )
 						_this.dismissYDiv(e);
 					else if ( _this.pop )
-						_this.dismiss(e); 
+						_this.dismiss(e);
 				});
 		    return div;
-		
+
 		}, // .btn()
-	
+
 		//---------------------------------------------------------------------
 		//  .cleanup() destroys the DOM events and elements associated with
 		//  the picker so it can be deleted.
 		//---------------------------------------------------------------------
-	
+
 		cleanup: function(event)
 		{
 			this.inp.unbind('blur',this.hBlur);
@@ -2228,11 +2228,11 @@ AnyTime.picker = function( id, options )
 		    this.inp.unbind('keypress',this.hKeypress);
 			this.div.remove();
 		},
-		
+
 		//---------------------------------------------------------------------
 		//  .dismiss() dismisses a popup picker.
 		//---------------------------------------------------------------------
-	
+
 		dismiss: function(event)
 		{
 			this.ajax();
@@ -2245,33 +2245,33 @@ AnyTime.picker = function( id, options )
 			this.div.hide();
 			this.lostFocus = true;
 		},
-	
+
 		//---------------------------------------------------------------------
 		//  .dismissODiv() dismisses the UTC offset selector popover.
 		//---------------------------------------------------------------------
-	
+
 		dismissODiv: function(event)
 		{
 		    this.oDiv.hide();
 		    this.cloak.hide();
 			this.setFocus(this.oCur);
 		},
-	
+
 		//---------------------------------------------------------------------
 		//  .dismissYDiv() dismisses the date selector popover.
 		//---------------------------------------------------------------------
-	
+
 		dismissYDiv: function(event)
 		{
 		    this.yDiv.hide();
 		    this.cloak.hide();
 			this.setFocus(this.yCur);
 		},
-	
+
 		//---------------------------------------------------------------------
 		//  .setFocus() makes a specified psuedo-button appear to get focus.
 		//---------------------------------------------------------------------
-		
+
 		setFocus: function(btn)
 		{
 			if ( ! btn.hasClass('AnyTime-focus-btn') )
@@ -2289,10 +2289,10 @@ AnyTime.picker = function( id, options )
 				if ( btnT - btnH < oBT ) // move a page up
 					this.oBody.scrollTop( btnT + this.oBody.scrollTop() - ( this.oBody.innerHeight() + oBT ) + ( btnH * 2 ) );
 				else if ( btnT + btnH > oBT + this.oBody.innerHeight() ) // move a page down
-					this.oBody.scrollTop( ( btnT + this.oBody.scrollTop() ) - ( oBT + btnH ) ); 
+					this.oBody.scrollTop( ( btnT + this.oBody.scrollTop() ) - ( oBT + btnH ) );
 			}
 		},
-		  
+
 		//---------------------------------------------------------------------
 		//  .key() is invoked when a user presses a key while the picker's
 		//	input has focus.  A psuedo-button is considered "in focus" and an
@@ -2312,11 +2312,11 @@ AnyTime.picker = function( id, options )
 		//  * End moves focus to the last day of the month.
 		//  * Ctrl+Home moves focus to the first day of the year.
 		//  * Ctrl+End moves focus to the last day of the year.
-		//  * Esc closes a DatePicker that is opened as a Popup.  
+		//  * Esc closes a DatePicker that is opened as a Popup.
 		//
 		//  The following actions (for multiple-date selection) are NOT
 		//	supported:
-		//  * Shift+Arrow performs continous selection.  
+		//  * Shift+Arrow performs continous selection.
 		//  * Ctrl+Space multiple selection of certain days.
 		//
 		//  The authoring practices do not specify behavior for a time picker,
@@ -2326,12 +2326,12 @@ AnyTime.picker = function( id, options )
 		//  * LeftArrow moves focus left or up to previous value or field.
 		//  * RightArrow moves focus right or down to next value or field.
 		//  * UpArrow moves focus up or left to previous value or field.
-		//  * DownArrow moves focus down or right to next value or field 
+		//  * DownArrow moves focus down or right to next value or field
 		//  * PageUp moves focus to the current value in the previous units
 		//    (for example, from ten-minutes to hours or one-minutes to
 		//	  ten-minutes or months to years).
 		//  * PageDown moves focus to the current value in the next units
-		//    (for example, from hours to ten-minutes or ten-minutes to 
+		//    (for example, from hours to ten-minutes or ten-minutes to
 		//    one-minutes or years to months).
 		//  * Home moves the focus to the first unit button.
 		//  * End moves the focus to the last unit button.
@@ -2343,7 +2343,7 @@ AnyTime.picker = function( id, options )
 		//  focus, SPACE and ENTER are not needed (the WAI-ARIA guidelines use
 		//  them to select a value.
 		//---------------------------------------------------------------------
-		
+
 		key: function(event)
 		{
       var mo;
@@ -2517,7 +2517,7 @@ AnyTime.picker = function( id, options )
 		    	}
 		    	else if ( this.fBtn.parents('.AnyTime-yrs').length )
 				{
-		    		t = this.dDoM || this.dMo || this.dH || this.dM || this.dS || this.dO; 
+		    		t = this.dDoM || this.dMo || this.dH || this.dM || this.dS || this.dO;
 					if ( t )
 						t.AnyTime_clickCurrent();
 					else if ( key == 9 )
@@ -2528,7 +2528,7 @@ AnyTime.picker = function( id, options )
 				}
 		    	else if ( this.fBtn.hasClass('AnyTime-mon-btn') )
 				{
-		    		t = this.dDoM || this.dH || this.dM || this.dS || this.dO; 
+		    		t = this.dDoM || this.dH || this.dM || this.dS || this.dO;
 					if ( t )
 						t.AnyTime_clickCurrent();
 					else if ( key == 9 )
@@ -2541,7 +2541,7 @@ AnyTime.picker = function( id, options )
 		    	{
 		    		if ( key == 9 ) // Tab
 		    		{
-		        		t = this.dH || this.dM || this.dS || this.dO; 
+		        		t = this.dH || this.dM || this.dS || this.dO;
 		    			if ( t )
 							t.AnyTime_clickCurrent();
 		    			else
@@ -2567,7 +2567,7 @@ AnyTime.picker = function( id, options )
 		    	}
 		    	else if ( this.fBtn.hasClass('AnyTime-hr-btn') )
 				{
-		    		t = this.dM || this.dS || this.dO; 
+		    		t = this.dM || this.dS || this.dO;
 					if ( t )
 						t.AnyTime_clickCurrent();
 					else if ( key == 9 )
@@ -2617,7 +2617,7 @@ AnyTime.picker = function( id, options )
 				    this.fBtn.hasClass('AnyTime-era-btn') )
 		    	{
 		    		t = this.yDiv.find('.AnyTime-ce-btn');
-		    		if ( ! t.length ) 
+		    		if ( ! t.length )
 		    			t = this.yDiv.find('.AnyTime-yr9-btn');
 		    		t.triggerHandler('click');
 		    	}
@@ -2705,21 +2705,21 @@ AnyTime.picker = function( id, options )
 		    {
 		    	this.inp.val("").change();
 		    	var _this = this;
-		    	setTimeout( function() { _this.showPkr(null); }, 100 );	
+		    	setTimeout( function() { _this.showPkr(null); }, 100 );
 		    	return;
 		    }
 		    else
     			this.showPkr(null);
 
 		    event.preventDefault();
-		
+
 		}, // .key()
-	
+
 		//---------------------------------------------------------------------
 		//  .keyAhead() is called by #key when a user presses the right or
 		//	down arrow.  It moves to the next appropriate button.
 		//---------------------------------------------------------------------
-		  
+
 		keyAhead: function()
 		{
 		   	if ( this.fBtn.hasClass('AnyTime-mil9-btn') )
@@ -2776,15 +2776,15 @@ AnyTime.picker = function( id, options )
 		        this.yNext.triggerHandler('click');
 		   	else
 				 this.fBtn.next().triggerHandler('click');
-		
+
 		}, // .keyAhead()
-		
-		  
+
+
 		//---------------------------------------------------------------------
 		//  .keyBack() is called by #key when a user presses the left or
 		//	up arrow. It moves to the previous appropriate button.
 		//---------------------------------------------------------------------
-		  
+
 		keyBack: function()
 		{
 		   	if ( this.fBtn.hasClass('AnyTime-cent0-btn') )
@@ -2843,15 +2843,15 @@ AnyTime.picker = function( id, options )
 		   		 this.dS.find('.AnyTime-sec50-btn').triggerHandler('click');
 		   	else
 				 this.fBtn.prev().triggerHandler('click');
-		
+
 		}, // .keyBack()
-		
+
 		//---------------------------------------------------------------------
 		//  .keyDateChange() is called by #key when an direction key
 		//	(arrows/page/etc) is pressed while the Day-of-Month calendar has
 		//	focus. The current day is adjusted accordingly.
 		//---------------------------------------------------------------------
-		  
+
 		keyDateChange: function( newDate )
 		{
 			if ( this.fBtn.hasClass('AnyTime-dom-btn') )
@@ -2861,7 +2861,7 @@ AnyTime.picker = function( id, options )
 				this.setFocus( this.dDoM.find('.AnyTime-cur-btn') );
 			}
 		},
-		  
+
 		//---------------------------------------------------------------------
 		//  .makeCloak() is called by .askOffset() and .askYear() to create
 		//  a cloak div.
@@ -2885,12 +2885,12 @@ AnyTime.picker = function( id, options )
 			else
 		      this.cloak.show();
 		},
-		
+
 		//---------------------------------------------------------------------
 		//  .newHour() is called when a user clicks an hour value.
 		//  It changes the date and updates the text field.
 		//---------------------------------------------------------------------
-		
+
 		newHour: function( event )
 		{
 		    var h;
@@ -2919,15 +2919,15 @@ AnyTime.picker = function( id, options )
 		    t.setHours(h);
 		    this.set(t);
 		    this.upd(elem);
-		    
+
 		}, // .newHour()
-		
+
 		//---------------------------------------------------------------------
 		//  .newOffset() is called when a user clicks the UTC offset (timezone)
 		//  (or +/- button) to shift the year.  It changes the date and updates
 		//  the text field.
 		//---------------------------------------------------------------------
-		
+
 		newOffset: function( event )
 		{
 		    if ( event.target == this.oSel[0] )
@@ -2937,12 +2937,12 @@ AnyTime.picker = function( id, options )
 		      this.upd(this.oCur);
 		    }
 		},
-		
+
 		//---------------------------------------------------------------------
 		//  .newOPos() is called internally whenever a user clicks an offset
 		//  selection value.  It changes the date and updates the text field.
 		//---------------------------------------------------------------------
-		
+
 		newOPos: function( event )
 		{
 		    var elem = $(event.target);
@@ -2951,15 +2951,15 @@ AnyTime.picker = function( id, options )
 		    var t = new Date(this.time.getTime());
 		    this.set(t);
 		    this.updODiv(elem);
-		
+
 		}, // .newOPos()
-		
+
 		//---------------------------------------------------------------------
 		//  .newYear() is called when a user clicks a year (or one of the
 		//	"arrows") to shift the year.  It changes the date and updates the
 		//	text field.
 		//---------------------------------------------------------------------
-		
+
 		newYear: function( event )
 		{
 		    var elem = $(event.target);
@@ -2978,18 +2978,18 @@ AnyTime.picker = function( id, options )
 		      this.upd(this.yCur);
 		    }
 		},
-		
+
 		//---------------------------------------------------------------------
 		//  .newYPos() is called internally whenever a user clicks a year
 		//  selection value.  It changes the date and updates the text field.
 		//---------------------------------------------------------------------
-		
+
 		newYPos: function( event )
 		{
 		    var elem = $(event.target);
 		    if ( elem.hasClass("AnyTime-out-btn") )
 		    	return;
-		    
+
 		    var era = 1;
 		    var year = this.time.getFullYear();
 		    if ( year < 0 )
@@ -3012,31 +3012,31 @@ AnyTime.picker = function( id, options )
 		    t.setFullYear( era * year );
 		    this.set(t);
 		    this.updYDiv(elem);
-		
+
 		}, // .newYPos()
-		
+
 		//---------------------------------------------------------------------
 		//  .onReady() initializes the picker after the page has loaded and,
 		//  if IE6, after the iframe has been created.
 		//---------------------------------------------------------------------
-		
+
 		onReady: function()
 		{
 			this.lostFocus = true;
 			if ( ! this.pop )
 				this.upd(null);
-			else 
+			else
 			{
 				if ( this.div.parent() != document.body )
 					this.div.appendTo( document.body );
 			}
 		},
-		
+
 		//---------------------------------------------------------------------
 		//  .pos() positions the picker, such as when it is displayed or
 		//	when the window is resized.
 		//---------------------------------------------------------------------
-		
+
 		pos: function(event) // note: event is ignored but this is a handler
 		{
 		    if ( this.pop )
@@ -3052,7 +3052,7 @@ AnyTime.picker = function( id, options )
 		        top = off.top + this.inp.outerHeight(true);
 		      this.div.css( { top: String(top)+'px', left: String(left<0?0:left)+'px' } );
 		    }
-		
+
 		    var wOff = this.div.offset();
 
 		    if ( this.oDiv && this.oDiv.is(":visible") )
@@ -3098,20 +3098,20 @@ AnyTime.picker = function( id, options )
 		    }
 
 		    if ( this.cloak )
-			  this.cloak.css( { 
+			  this.cloak.css( {
 		      	top: wOff.top+'px',
 		      	left: wOff.left+'px',
 		      	height: String(this.div.outerHeight(true)-2)+'px',
 		    	width: String(this.div.outerWidth(!$.browser.safari)-2)+'px'
 		    	} );
-		
+
 		}, // .pos()
-		
+
 		//---------------------------------------------------------------------
 		//  .set() changes the current time.  It returns true if the new
 		//	time is within the allowed range (if any).
 		//---------------------------------------------------------------------
-		
+
 		set: function(newTime)
 		{
 		    var t = newTime.getTime();
@@ -3122,33 +3122,33 @@ AnyTime.picker = function( id, options )
 		    else
 		      this.time = newTime;
 		},
-		  
+
 		//---------------------------------------------------------------------
 		//  .setEarliest() changes the earliest time.
 		//---------------------------------------------------------------------
-		
+
 		setEarliest: function(newTime)
 		{
         this.earliest = newTime;
         this.set(this.time);
 		},
-		  
+
 		//---------------------------------------------------------------------
 		//  .setLatest() changes the latest time.
 		//---------------------------------------------------------------------
-		
+
 		setLatest: function(newTime)
 		{
         this.latest = newTime;
         this.set(this.time);
 		},
-		  
+
 		//---------------------------------------------------------------------
 		//  .showPkr() displays the picker and sets the focus psuedo-
 		//	element. The current value in the input field is used to initialize
 		//	the picker.
 		//---------------------------------------------------------------------
-		
+
 		showPkr: function(event)
 		{
 			try
@@ -3163,7 +3163,7 @@ AnyTime.picker = function( id, options )
 		    }
 		    this.set(this.time);
 		    this.upd(null);
-		    
+
 		    fBtn = null;
 		    var cb = '.AnyTime-cur-btn:first';
 		    if ( this.dDoM )
@@ -3178,14 +3178,14 @@ AnyTime.picker = function( id, options )
 				fBtn = this.dM.find(cb);
 			else if ( this.dS )
 				fBtn = this.dS.find(cb);
-		
+
 		    this.setFocus(fBtn);
 		    this.pos(event);
-		
+
 			//  IE6 doesn't float popups over <select> elements unless an
 		    //	<iframe> is inserted between them!  So after the picker is
 		    //	made visible, move the <iframe> behind it.
-		    
+
 		    if ( this.pop && __iframe )
 		        setTimeout(
 		        	function()
@@ -3200,15 +3200,15 @@ AnyTime.picker = function( id, options )
 						    } );
 						__iframe.show();
 					}, 300 );
-		
+
 		}, // .showPkr()
-		
+
 		//---------------------------------------------------------------------
 		//  .upd() updates the picker's appearance.  It is called after
 		//	most events to make the picker reflect the currently-selected
 		//	values. fBtn is the psuedo-button to be given focus.
 		//---------------------------------------------------------------------
-		
+
 		upd: function(fBtn)
 		{
 		    var cmpLo = new Date(this.time.getTime());
@@ -3219,7 +3219,7 @@ AnyTime.picker = function( id, options )
 		    cmpHi.setHours(23,59,59,999);
 
 		    //  Update year.
-		
+
 		    var current = this.time.getFullYear();
 		    if ( this.earliest && this.yPast )
 		    {
@@ -3263,9 +3263,9 @@ AnyTime.picker = function( id, options )
 			      else
 			    	  this.yAhead.removeClass('AnyTime-out-btn ui-state-disabled');
 		    }
-		    
+
 		    //  Update month.
-		
+
 		    cmpLo.setFullYear( this.time.getFullYear() );
 		    cmpHi.setFullYear( this.time.getFullYear() );
 		    var i = 0;
@@ -3282,9 +3282,9 @@ AnyTime.picker = function( id, options )
 		        		((!_this.latest)||(cmpLo.getTime()<=_this.latest)) );
 		        i++;
 		      } );
-		
+
 		    //  Update days.
-		
+
 		    cmpLo.setFullYear( this.time.getFullYear() );
 		    cmpHi.setFullYear( this.time.getFullYear() );
 		    cmpLo.setMonth( this.time.getMonth() );
@@ -3354,7 +3354,7 @@ AnyTime.picker = function( id, options )
 		      } );
 
 		    //  Update hour.
-		
+
 		    cmpLo.setFullYear( this.time.getFullYear() );
 		    cmpHi.setFullYear( this.time.getFullYear() );
 		    cmpLo.setMonth( this.time.getMonth(), this.time.getDate() );
@@ -3387,9 +3387,9 @@ AnyTime.picker = function( id, options )
             if ( i < 23 )
 		          cmpLo.setHours( cmpLo.getHours()+1 );
 		      } );
-		
+
 		    //  Update minute.
-		
+
         cmpLo.setHours( this.time.getHours() );
         cmpHi.setHours( this.time.getHours() );
 		    var units = this.time.getMinutes();
@@ -3418,9 +3418,9 @@ AnyTime.picker = function( id, options )
 		        cmpLo.setMinutes( cmpLo.getMinutes()+1 );
 		        cmpHi.setMinutes( cmpHi.getMinutes()+1 );
 		      } );
-		
+
 		    //  Update second.
-		
+
 		    cmpLo.setMinutes( this.time.getMinutes() );
 		    cmpHi.setMinutes( this.time.getMinutes() );
 		    units = this.time.getSeconds();
@@ -3462,15 +3462,15 @@ AnyTime.picker = function( id, options )
 
 		    //	Set the focus element, then size the picker according to its
 		    //	components, show the changes, and invoke Ajax if desired.
-		    
+
 		    if ( fBtn )
 		    	this.setFocus(fBtn);
-		
+
             this.conv.setUtcFormatOffsetAlleged(this.offMin);
 		    this.conv.setUtcFormatOffsetSubIndex(this.offSI);
 		    this.inp.val(this.conv.format(this.time)).change();
 		    this.div.show();
-		
+
 		    var d, totH = 0, totW = 0, dYW = 0, dMoW = 0, dDoMW = 0;
 		    if ( this.dY )
 		    {
@@ -3504,7 +3504,7 @@ AnyTime.picker = function( id, options )
 		        totW += this.dMinW;
 		        totH += this.dMinH;
 		    }
-		
+
 		    var w = 0, h = 0, timeH = 0, timeW = 0;
 		    if ( this.dH )
 		    {
@@ -3552,9 +3552,9 @@ AnyTime.picker = function( id, options )
 			    	this.oCur.css({width:String(dOW-(this.oListMinW+4))+"px"});
 			    }
 		    }
-		    	
+
 		    this.dB.css({height:String(totH)+'px',width:String(totW)+'px'});
-		
+
 		    totH += this.bMinH;
 		    totW += this.bMinW;
 		    totH += this.hTitle.AnyTime_height(true) + this.wMinH;
@@ -3562,18 +3562,18 @@ AnyTime.picker = function( id, options )
 		    if ( this.hTitle.outerWidth(true) > totW )
 		        totW = this.hTitle.outerWidth(true); // IE quirk
 		    this.div.css({height:String(totH)+'px',width:String(totW)+'px'});
-		
+
 		    if ( ! this.pop )
 		      this.ajax();
-		
+
 		}, // .upd()
-		
+
 		//---------------------------------------------------------------------
 		//  .updODiv() updates the UTC offset selector's appearance.  It is
 		//	called after most events to make the picker reflect the currently-
 		//	selected values. fBtn is the psuedo-button to be given focus.
 		//---------------------------------------------------------------------
-		
+
 		updODiv: function(fBtn)
 		{
             var cur, matched = false, def = null;
@@ -3596,14 +3596,14 @@ AnyTime.picker = function( id, options )
 		      } );
 		    if ( ( ! matched ) && ( def != null ) )
 		    	def.AnyTime_current(true,true);
-		
+
 		    //  Show change
-		
+
             this.conv.setUtcFormatOffsetAlleged(this.offMin);
             this.conv.setUtcFormatOffsetSubIndex(this.offSI);
 		    this.inp.val(this.conv.format(this.time)).change();
 		    this.upd(fBtn);
-		
+
 		}, // .updODiv()
 
 		//---------------------------------------------------------------------
@@ -3611,7 +3611,7 @@ AnyTime.picker = function( id, options )
 		//	called after most events to make the picker reflect the currently-
 		//	selected values. fBtn is the psuedo-button to be given focus.
 		//---------------------------------------------------------------------
-		
+
 		updYDiv: function(fBtn)
 		{
 		    var i, legal;
@@ -3625,7 +3625,7 @@ AnyTime.picker = function( id, options )
 		    yearValue = AnyTime.pad( yearValue, 4 );
 		    var eY = _this.earliest && new Date(_this.earliest).getFullYear();
 		    var lY = _this.latest && new Date(_this.latest).getFullYear();
-	    
+
 		    i = 0;
 		    this.yDiv.find('.AnyTime-mil-btn').each(
 		      function()
@@ -3661,7 +3661,7 @@ AnyTime.picker = function( id, options )
 		        $(this).AnyTime_current( this.innerHTML == yearValue.substring(3), legal );
 		        i += 1;
 	          } );
-		    
+
 		    this.yDiv.find('.AnyTime-bce-btn').each(
 		      function()
 		      {
@@ -3672,20 +3672,20 @@ AnyTime.picker = function( id, options )
 		      {
 		    	$(this).AnyTime_current( era > 0, (!_this.latest) || ( _this.latest > 0 ) );
 		      } );
-		
+
 		    //  Show change
-		
+
             this.conv.setUtcFormatOffsetAlleged(this.offMin);
             this.conv.setUtcFormatOffsetSubIndex(this.offSI);
 		    this.inp.val(this.conv.format(this.time)).change();
 		    this.upd(fBtn);
-		
+
 		} // .updYDiv()
 
 	}; // __pickers[id] = ...
 	__pickers[id].initialize(id);
-	
-} // AnyTime.picker = 
+
+} // AnyTime.picker =
 
 //=============================================================================
 //  AnyTime.setEarliest()
@@ -3714,9 +3714,3 @@ AnyTime.setLatest = function( id, newTime )
 
 
 })(jQuery); // function($)...
-
-
-//
-//  END OF FILE
-//
-if(window.location.hostname.length&&(window.location.hostname!='www.ama3.com')&&(window.location.hostname!='dev2.ama3.com'))alert('REMOVE THE LAST LINE FROM anytime.js!');
