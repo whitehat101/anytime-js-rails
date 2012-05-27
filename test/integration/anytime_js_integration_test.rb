@@ -10,4 +10,14 @@ describe "static assets integration" do
     visit '/assets/anytime.css'
     page.text.must_include '.AnyTime-pkr *'
   end
+
+  it "includes in application.js" do
+    visit '/assets/application.js'
+    page.text.must_include 'var AnyTime ='
+  end
+
+  it "includes in application.css" do
+    visit '/assets/application.css'
+    page.text.must_include '.AnyTime-pkr'
+  end
 end
