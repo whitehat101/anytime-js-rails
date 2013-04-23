@@ -1,9 +1,9 @@
 /*****************************************************************************
  *  FILE:  anytime.js - The Any+Time(TM) JavaScript Library (source)
  *
- *  VERSION: 4.1112L
+ *  VERSION: 4.2013.03.15.a
  *
- *  Copyright 2008-2012 Andrew M. Andrews III (www.AMA3.com). Some Rights
+ *  Copyright 2008-2013 Andrew M. Andrews III (www.AMA3.com). Some Rights
  *  Reserved. This work licensed under the Creative Commons Attribution-
  *  Noncommercial-Share Alike 3.0 Unported License except in jurisdicitons
  *  for which the license has been ported by Creative Commons International,
@@ -75,7 +75,6 @@ var AnyTime =
 {
 	// private members
 
-	var __oneDay = (24*60*60*1000);
 	var __daysIn = [ 31,28,31,30,31,30,31,31,30,31,30,31 ];
 	var __iframe = null;
 	var __initialized = false;
@@ -2348,6 +2347,7 @@ AnyTime.picker = function( id, options )
 		{
       var mo;
 			var t = null;
+      var _this = this;
 			var elem = this.div.find('.AnyTime-focus-btn');
 		    var key = event.keyCode || event.which;
 		    this.denyTab = true;
@@ -2676,35 +2676,50 @@ AnyTime.picker = function( id, options )
 		    else if ( key == 37 ) // left arrow
 		    {
 		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )
-		    		this.keyDateChange(new Date(this.time.getTime()-__oneDay));
+          {
+			      t = new Date(this.time.getTime());
+            t.setDate(t.getDate()-1);
+		    		this.keyDateChange(t);
+          }
 		    	else
 		    		this.keyBack();
 		    }
 		    else if ( key == 38 ) // up arrow
 		    {
 		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )
-		    		this.keyDateChange(new Date(this.time.getTime()-(7*__oneDay)));
+          {
+			      t = new Date(this.time.getTime());
+            t.setDate(t.getDate()-7);
+		    		this.keyDateChange(t);
+          }
 		    	else
 		    		this.keyBack();
 		    }
 		    else if ( key == 39 ) // right arrow
 		    {
 		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )
-		    		this.keyDateChange(new Date(this.time.getTime()+__oneDay));
+          {
+			      t = new Date(this.time.getTime());
+            t.setDate(t.getDate()+1);
+		    		this.keyDateChange(t);
+          }
 		    	else
 		    		this.keyAhead();
 		    }
 		    else if ( key == 40 ) // down arrow
 		    {
 		    	if ( this.fBtn.hasClass('AnyTime-dom-btn') )
-		    		this.keyDateChange(new Date(this.time.getTime()+(7*__oneDay)));
+         {
+			      t = new Date(this.time.getTime());
+            t.setDate(t.getDate()+7);
+		    		this.keyDateChange(t);
+          }
 		    	else
 		    		this.keyAhead();
 		    }
 		    else if ( ( ( key == 86 ) || ( key == 118 ) ) && event.ctrlKey )
 		    {
 		    	this.inp.val("").change();
-		    	var _this = this;
 		    	setTimeout( function() { _this.showPkr(null); }, 100 );
 		    	return;
 		    }
@@ -3213,7 +3228,7 @@ AnyTime.picker = function( id, options )
 		{
 		    var cmpLo = new Date(this.time.getTime());
 		    cmpLo.setMonth(0,1);
-		    cmpLo.setHours(0,0,0,0);
+		    cmpLo.setHours(12,0,0,0); //12 avoids daylight savings bugs
 		    var cmpHi = new Date(this.time.getTime());
 		    cmpHi.setMonth(11,31);
 		    cmpHi.setHours(23,59,59,999);
