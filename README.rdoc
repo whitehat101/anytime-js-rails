@@ -3,7 +3,7 @@
 
 js/css by Andrew M Andrews III
 
-See http://www.ama3.com/anytime/ more documentation.
+See http://www.ama3.com/anytime more documentation.
 
 
 == Include it in your manifests
@@ -22,3 +22,9 @@ Or with SCSS
   # stylesheets/application.css.scss
   @import "anytime";
 
+== Versions
+
+In the spirit of semantic versioning, you can expect a minor version for each Any+Time™ source release. Patch releases will only contain backwords-compatible fixes.
+
+* 1.1.X - 4.2013.03.15.a
+* 1.0.X - 4.1112L
