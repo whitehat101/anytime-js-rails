@@ -1,6 +1,6 @@
 module AnytimeJsRails
-  VERSION = "4.1112L"
+  VERSION = "4.2013.03.15.a"
   module Rails
-    VERSION = "1.0.4"
+    VERSION = "1.1.0"
   end
 end
